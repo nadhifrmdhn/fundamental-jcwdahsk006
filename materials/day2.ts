@@ -15,7 +15,7 @@ Salah satu sistem version control yang akan kita pakai
 
 
 
-[Working Directory] -> git add . -> [Staging Area] -> git commit -m "commit message" -> [Repository Area]
+[Working Directory] -> git add . -> [Staging Area] -> git commit -m "commit message" -> [Local Repository Area] -> git push origin main -> [Remote Repository Area]
 
 A = Added
 D = Deleted
@@ -23,5 +23,11 @@ M = Modified
 U = Untracked
 
 
+
+git checkout -b branch_name -> create new branch and switch to it
+git switch branch_name -> switch to existing branch
+
+git branch -D branch_name -> delete branch
+contoh: misal ada salah commit langsung ke main di local -> git branch -D main -> ini bakal hapus branch main di local aja
 
 */

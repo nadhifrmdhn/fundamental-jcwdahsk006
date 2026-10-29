@@ -46,15 +46,11 @@ Write a code to convert days to years, months and days (Notes: 1 year : 365 days
 Example : 400 days → 1 year, 1 month, 5 days
 Example: 366 days → 1 year, 0 month, 1 day
 */
-let totalDays: number = 400;
-
-
-/*
-Write a code to convert days to years, months and days (Notes: 1 year : 365 days, 1 month : 30 days).
-Example : 400 days → 1 year, 1 month, 5 days
-Example: 366 days → 1 year, 0 month, 1 day
-*/
-
+const hari: number = 400;
+const tahun: number = Math.floor(hari / 365);
+const bulan: number = Math.floor((hari % 365) / 30);
+const tanggal: number = Math.floor((hari % 365) % 30);
+console.log(`${tahun} year, ${bulan} month, ${tanggal} days`);
 
 
 /*
@@ -62,3 +58,12 @@ Write a code to get difference between dates in days.
 Example : date1 = 2022-01-20, date2 = 2022-01-22
 Output : 2
 */
+const date1: Date = new Date('2022-01-20');
+const date2: Date = new Date('2022-01-22');
+const bedaTanggal: number = Math.abs(date1.getTime() - date2.getTime());
+
+console.log(bedaTanggal);
+
+const bedaHari: number = bedaTanggal / (1000 * 60 * 60 * 24);
+
+console.log(bedaHari);

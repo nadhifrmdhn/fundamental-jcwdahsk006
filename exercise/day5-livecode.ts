@@ -144,3 +144,33 @@ console.log(addIfNotPresent(numbersWithoutDuplicate, 4));
 
 const numbersWithNewElement = [1, 2, 3, 4];
 console.log(addIfNotPresent(numbersWithNewElement, 7));
+
+
+// SOAL TAMBAHAN
+/*
+5. Write a function to find the difference in 2 given array
+    a. Example : arr1 = [1, 2, 3, 4, 5], arr2 = [3, 4, 5, 6, 7] → [1, 2, 6, 7]
+*/
+function findDifference(arr1: number[], arr2: number[]): number[] {
+  const difference: number[] = [];
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (!arr2.includes(arr1[i])) {
+      difference.push(arr1[i]);
+    }
+  }
+
+  for (let i = 0; i < arr2.length; i++) {
+    if (!arr1.includes(arr2[i])) {
+      difference.push(arr2[i]);
+    }
+  }
+
+  return difference;
+}
+
+const diffArr1 = [1, 2, 3, 4, 5];
+const diffArr2 = [3, 4, 5, 6, 7];
+console.log(findDifference(diffArr1, diffArr2));
+
+

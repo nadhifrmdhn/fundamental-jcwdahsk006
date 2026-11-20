@@ -77,6 +77,30 @@ Example 2:
 Input: nums = [2,2,1,1,1,2,2]
 Output: 2
 */
+function majorityElement(nums: number[]): number {
+
+  const n = nums.length;
+  const half = Math.floor(n / 2); // Hitung setengah panjang dari array nya
+
+  for (const num of nums) {
+    let count = 0;
+
+    for (const element of nums) {
+      if (num === element) { // Cek jika kedua angka sama
+        count++;
+      }
+    }
+
+    if (count > half) { // Cek apakah termasuk majority element
+      return num;
+    }
+  }
+
+  throw new Error("Majority element not found");
+}
+
+console.log(majorityElement([3, 2, 3]));
+console.log(majorityElement([2, 2, 1, 1, 1, 2, 2]));
 
 
 /*
@@ -95,6 +119,37 @@ Input: s = "MCMXCIV"
 Output: 1994
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 */
+function romanToInt(s: string): number {
+
+  const roman: Record<string, number> = { // Buat object untuk menyimpan nilai numeral
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000
+  };
+
+  let total = 0;
+
+  for (let i = 0; i < s.length; i++) {
+
+    const current = roman[s[i]]; // Ambil nilai dari angka Romawi
+    const next = roman[s[i + 1]] ?? 0; // Cek ambil nilai kalau ada angka Romawi lagi setelahnya
+
+    if (current < next) { // Compare nilai sekarang dan nilai setelahnya
+      total = total - current; // Kalau nilai sekarang lebih kecil dari setelahnya, jadi dikurangi
+    } else {
+      total = total + current; // Sebaliknya, kalau nilainya lebih besar, jadi ditambah
+    }
+  }
+  return total;
+}
+
+console.log(romanToInt("III"));
+console.log(romanToInt("LVIII"));
+console.log(romanToInt("MCMXCIV"));
 
 
 /*
@@ -108,6 +163,40 @@ Example 2:
 Input: numRows = 1
 Output: [[1]]
 */
+function generate(numRows: number): number[][] {
+
+  const triangle: number[][] = []; // Buat empty array untuk segitiga kosong
+
+  // Loop outer untuk buat row
+  for (let i = 0; i < numRows; i++) { 
+
+    const row: number[] = []; // Buat segitiga kosong untuk current row
+
+     // Loop inner untuk buat kolom
+    for (let j = 0; j <= i; j++) { 
+
+      if (j === 0 || j === i) { // Cek apakah ini first atau last element di row ini
+        row.push(1); // Kalau first dan last selalu 1
+      } else {
+
+        // Ambil 2 angka diatas dari row sebelumnya
+        const left = triangle[i - 1][j - 1];
+        const right = triangle[i - 1][j];
+
+        const value = left + right; // Hitung totalnya
+
+        row.push(value); // Tambahin nilai yang sudah dihitung ke row
+      }
+    }
+
+    triangle.push(row); // Tambahin row yang sudah complete ke array segitiga tadi
+  }
+
+  return triangle;
+}
+
+console.log(generate(5));
+console.log(generate(1));
 
 
 /*
@@ -125,3 +214,32 @@ Input: prices = [7,6,4,3,1]
 Output: 0
 Explanation: In this case, no transactions are done and the max profit = 0.
 */
+function maxProfit(prices: number[]): number {
+
+  if (prices.length < 2) { // Butuh setidaknya 2 hari untuk beli dan jual
+    return 0;
+  }
+
+  let minPrice = prices[0];
+  let maxProfit = 0;
+
+  for (let i = 1; i < prices.length; i++) { // Loop sisa hari
+
+    const currentPrice = prices[i]; // Ambil harga stok hari ini
+
+    const profit = currentPrice - minPrice; // Hitung profit yang memungkinkan kalau jual hari ini
+
+    if (profit > maxProfit) { // Cek apakah bisa cari profit yang lebih bagus
+      maxProfit = profit;
+    }
+
+    if (currentPrice < minPrice) { // Cek apakah harga hari ini lebih murah dari harga beli minmum sebelumnya
+      minPrice = currentPrice;
+    }
+  }
+
+  return maxProfit;
+}
+
+console.log(maxProfit([7, 1, 5, 3, 6, 4]));
+console.log(maxProfit([7, 6, 4, 3, 1]));
